@@ -1,9 +1,11 @@
-package UI;
+package app;
 
 import javax.swing.*;
 
-import UI.Buttons.*;
-import UI.Sliders.*;
+import Components.Buttons.*;
+import Components.Sliders.*;
+import Components.TextBoxes.*;
+import Listeners.Sliders.PositionListener;
 
 import java.awt.Color;
 
@@ -13,10 +15,11 @@ public class main_frame extends JFrame {
 	private stop_button stopButton;
 	private home_button homeButton;
 
-	private StartSlider startSlider;
-	private StopSlider stopSlider;
+	private PositionSlider positionSlider;
 	private StrokeDelaySlider strokeDelaySlider;
 	private StrokeDurationSlider strokeDurationSlider;
+
+	private DisplacementVolume displacementVolume;
 
 	public main_frame() {
 		super("Pulse Pump Controller");
@@ -44,22 +47,28 @@ public class main_frame extends JFrame {
 
 		// Sliders
 
-		// Start Slider
-		startSlider = new StartSlider();
-		startSlider.setLocation(200, 100);
-		add(startSlider);
+		// Start Stop Pos Slider
+		positionSlider = new PositionSlider();
+		positionSlider.setLocation(200, 100);
+		add(positionSlider);
 
-		stopSlider = new StopSlider();
-		stopSlider.setLocation(200, 200);
-		add(stopSlider);
-
+		// Stroke Delay
 		strokeDelaySlider = new StrokeDelaySlider();
-		strokeDelaySlider.setLocation(200, 300);
+		strokeDelaySlider.setLocation(200, 200);
 		add(strokeDelaySlider);
 
+		// Stroke Duration
 		strokeDurationSlider = new StrokeDurationSlider();
-		strokeDurationSlider.setLocation(200, 400);
+		strokeDurationSlider.setLocation(200, 300);
 		add(strokeDurationSlider);
+
+		// Value Boxes
+		displacementVolume = new DisplacementVolume();
+		displacementVolume.setLocation(200, 500);
+		displacementVolume.setVolume(positionSlider.getStart(), positionSlider.getStop());
+		add(displacementVolume);
+
+		positionSlider.addChangeListener(new PositionListener(displacementVolume));
 
 		setVisible(true);
 	}

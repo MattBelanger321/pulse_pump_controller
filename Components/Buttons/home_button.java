@@ -1,4 +1,4 @@
-package UI.Buttons;
+package Components.Buttons;
 
 import java.awt.Color;
 
