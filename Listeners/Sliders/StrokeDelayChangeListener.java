@@ -6,6 +6,7 @@ import javax.swing.event.ChangeListener;
 import Components.Sliders.StrokeDelaySlider;
 import Components.TextBoxes.BPM;
 import Components.TextBoxes.StrokeDelayValue;
+import app.Arduino;
 
 public class StrokeDelayChangeListener implements ChangeListener {
 
@@ -35,6 +36,9 @@ public class StrokeDelayChangeListener implements ChangeListener {
 
 	public void setBPM(BPM bpm) {
 		this.bpm = bpm;
+	}
+
+	public void addArduino(Arduino arduino) {
 	}
 
 }

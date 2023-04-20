@@ -6,6 +6,7 @@ import javax.swing.event.ChangeListener;
 import Components.Sliders.PositionSlider;
 import Components.TextBoxes.DisplacementVolume;
 import Components.TextBoxes.PositionValue;
+import app.Arduino;
 
 public class PositionChangeListener implements ChangeListener {
 
@@ -24,6 +25,9 @@ public class PositionChangeListener implements ChangeListener {
 		displacementVolume.setVolume(positionSlider.getStart(), positionSlider.getStop());
 
 		value.setValue(positionSlider.getStart(), positionSlider.getStop());
+	}
+
+	public void addArduino(Arduino arduino) {
 	}
 
 }

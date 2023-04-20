@@ -2,11 +2,14 @@ package Components.Panels;
 
 import javax.swing.JPanel;
 
+import org.w3c.dom.stylesheets.LinkStyle;
+
 import Components.Sliders.PositionSlider;
 import Components.TextBoxes.DisplacementVolume;
 import Components.TextBoxes.PositionTitle;
 import Components.TextBoxes.PositionValue;
-import Listeners.Sliders.PositionChangeListener;;
+import Listeners.Sliders.PositionChangeListener;
+import app.Arduino;;
 
 public class PositionPanel extends JPanel {
 
@@ -52,7 +55,11 @@ public class PositionPanel extends JPanel {
 	}
 
 	public void registerDisplacementTracker(DisplacementVolume tracker) {
-		positionSlider.addPositionChangeListener(new PositionChangeListener(tracker, sliderValue));
+		positionSlider.registerDisplacementTracker(tracker, sliderValue);
+	}
+
+	public void addArduino(Arduino arduino) {
+		positionSlider.addArduino(arduino);
 	}
 
 }

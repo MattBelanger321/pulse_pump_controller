@@ -2,7 +2,10 @@ package Components.Sliders;
 
 import java.awt.Color;
 
+import Components.TextBoxes.DisplacementVolume;
+import Components.TextBoxes.PositionValue;
 import Listeners.Sliders.PositionChangeListener;
+import app.Arduino;
 
 public class PositionSlider extends RangeSlider {
 	public final static int POSITION_MAX = 150;
@@ -10,6 +13,8 @@ public class PositionSlider extends RangeSlider {
 
 	public final static int POSITION_WIDTH = 200;
 	public final static int POSITION_HEIGHT = 25;
+
+	PositionChangeListener listener;
 
 	public PositionSlider() {
 		super(POSITION_MIN, POSITION_MAX);
@@ -39,7 +44,11 @@ public class PositionSlider extends RangeSlider {
 		return getValue();
 	}
 
-	public void addPositionChangeListener(PositionChangeListener listener) {
-		addChangeListener(listener);
+	public void registerDisplacementTracker(DisplacementVolume tracker, PositionValue sliderValue) {
+		listener = new PositionChangeListener(tracker, sliderValue);
+	}
+
+	public void addArduino(Arduino arduino) {
+		listener.addArduino(arduino);
 	}
 }

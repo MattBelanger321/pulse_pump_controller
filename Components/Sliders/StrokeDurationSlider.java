@@ -7,6 +7,7 @@ import javax.swing.JSlider;
 import Components.TextBoxes.BPM;
 import Components.TextBoxes.StrokeDurationValue;
 import Listeners.Sliders.StrokeDurationChangeListener;
+import app.Arduino;
 
 public class StrokeDurationSlider extends JSlider {
 	public final static int MAX = 10000;
@@ -34,5 +35,9 @@ public class StrokeDurationSlider extends JSlider {
 
 	public void addBPMTracker(BPM bpm) {
 		listener.setBPM(bpm);
+	}
+
+	public void addArduino(Arduino arduino) {
+		listener.addArduino(arduino);
 	}
 }

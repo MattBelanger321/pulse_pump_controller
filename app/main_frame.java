@@ -55,7 +55,7 @@ public class main_frame extends JFrame {
 	public static final int BPM_X = POSITION_X;
 	public static final int BPM_Y = DISPLACEMENT_Y + DisplacementPanel.PANEL_HEIGHT;
 
-	public main_frame() {
+	public main_frame(Arduino arduino) {
 		super("Pulse Pump Controller");
 		setSize(1280, 720);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -114,6 +114,13 @@ public class main_frame extends JFrame {
 
 		strokeDelayPanel.registerBPMTracker(bpm.getBPM());
 		strokeDurationPanel.registerBPMTracker(bpm.getBPM());
+
+		startButton.addArduino(arduino);
+		stopButton.addArduino(arduino);
+		homeButton.addArduino(arduino);
+		positionPanel.addArduino(arduino);
+		strokeDelayPanel.addArduino(arduino);
+		strokeDurationPanel.addArduino(arduino);
 
 		setVisible(true);
 	}

@@ -7,6 +7,7 @@ import javax.swing.JSlider;
 import Components.TextBoxes.BPM;
 import Components.TextBoxes.StrokeDelayValue;
 import Listeners.Sliders.StrokeDelayChangeListener;
+import app.Arduino;
 
 public class StrokeDelaySlider extends JSlider {
 	public final static int MAXVAL = 150;
@@ -31,6 +32,10 @@ public class StrokeDelaySlider extends JSlider {
 		listener = new StrokeDelayChangeListener(value);
 
 		addChangeListener(listener);
+	}
+
+	public void addArduino(Arduino arduino) {
+		listener.addArduino(arduino);
 	}
 
 	public void addBPMTracker(BPM bpm) {

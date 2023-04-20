@@ -6,6 +6,7 @@ import Components.Sliders.StrokeDurationSlider;
 import Components.TextBoxes.BPM;
 import Components.TextBoxes.StrokeDurationTitle;
 import Components.TextBoxes.StrokeDurationValue;
+import app.Arduino;
 
 public class StrokeDurationPanel extends JPanel {
 
@@ -54,5 +55,9 @@ public class StrokeDurationPanel extends JPanel {
 
 	public void registerBPMTracker(BPM bpm) {
 		strokeSlider.addBPMTracker(bpm);
+	}
+
+	public void addArduino(Arduino arduino) {
+		strokeSlider.addArduino(arduino);
 	}
 }
