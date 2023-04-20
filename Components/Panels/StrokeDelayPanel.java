@@ -18,7 +18,7 @@ public class StrokeDelayPanel extends JPanel {
 	public final static int TITLE_X = 0;
 	public final static int TITLE_Y = 0;
 
-	public final static int SLIDER_X = 105;
+	public final static int SLIDER_X = StrokeDelayTitle.WIDTH + 5;
 	public final static int SLIDER_Y = (StrokeDelayTitle.HEIGHT - StrokeDelaySlider.HEIGHT) / 2;
 
 	public final static int VALUE_X = StrokeDelaySlider.WIDTH + SLIDER_X + 5; // + 5 for padding

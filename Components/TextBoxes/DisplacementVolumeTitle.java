@@ -4,23 +4,23 @@ import java.awt.Font;
 
 import javax.swing.JTextPane;
 
-import UI.Text.StrokeDurationTitleDocument;
+import UI.Text.DisplacementVolumeTitleDocument;
 
-public class StrokeDurationTitle extends JTextPane {
+public class DisplacementVolumeTitle extends JTextPane {
 
 	public final static int ROWS = 1;
 	public final static int COLS = 50;
 
-	public final static int WIDTH = 120;
+	public final static int WIDTH = 150;
 	public final static int HEIGHT = 55;
 
-	private StrokeDurationTitleDocument doc;
+	private DisplacementVolumeTitleDocument doc;
 
 	private Font font;
 
-	public StrokeDurationTitle() {
+	public DisplacementVolumeTitle() {
 
-		doc = new StrokeDurationTitleDocument();
+		doc = new DisplacementVolumeTitleDocument();
 
 		setSize(WIDTH, HEIGHT);
 		setEditable(false);

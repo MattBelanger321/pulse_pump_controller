@@ -15,17 +15,17 @@ public class PositionPanel extends JPanel {
 	private PositionValue sliderValue;
 
 	public final static int PANEL_WIDTH = 500;
-	public final static int PANEL_HEIGHT = 200;
+	public final static int PANEL_HEIGHT = 100;
 
 	public final static int TITLE_X = 0; // relative to panel
 	public final static int TITLE_Y = 0;
 
-	public final static int SLIDER_X = 105; // relative to panel
+	public final static int SLIDER_X = PositionTitle.WIDTH + 5; // relative to panel
 	public final static int SLIDER_Y = (PositionTitle.HEIGHT - PositionSlider.POSITION_HEIGHT) / 2;
 
 	// relative to panel
 	public final static int VALUE_X = PositionSlider.POSITION_WIDTH + SLIDER_X + 5; // + 5 for padding
-	public final static int VALUE_Y = 10;
+	public final static int VALUE_Y = (PositionTitle.HEIGHT - PositionValue.HEIGHT) / 2;
 
 	public PositionPanel() {
 

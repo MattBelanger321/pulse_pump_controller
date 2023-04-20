@@ -3,16 +3,17 @@ package app;
 import javax.swing.*;
 
 import Components.Buttons.*;
+import Components.Panels.DisplacementPanel;
 import Components.Panels.PositionPanel;
 import Components.Panels.StrokeDelayPanel;
 import Components.Panels.StrokeDurationPanel;
-import Components.Sliders.*;
-import Components.TextBoxes.*;
-import Listeners.Sliders.PositionChangeListener;
+import Components.TextBoxes.MainTitle;
 
 import java.awt.Color;
 
 public class main_frame extends JFrame {
+
+	private MainTitle title;
 
 	private start_button startButton;
 	private stop_button stopButton;
@@ -22,7 +23,7 @@ public class main_frame extends JFrame {
 
 	private StrokeDelayPanel strokeDelayPanel;
 
-	private DisplacementVolume displacementVolume;
+	private DisplacementPanel displacementPanel;
 	private StrokeDurationPanel strokeDurationPanel;
 
 	public main_frame() {
@@ -32,46 +33,49 @@ public class main_frame extends JFrame {
 		setLayout(null);
 		getContentPane().setBackground(Color.GRAY);
 
+		title = new MainTitle();
+		title.setLocation(0, 0);
+		add(title);
+
 		// BUTTONS
 
 		// START
 		startButton = new start_button();
-		startButton.setLocation(10, 100);
+		startButton.setLocation(10, 200);
 		add(startButton);
 
 		// STOP
 		stopButton = new stop_button();
-		stopButton.setLocation(10, 200);
+		stopButton.setLocation(10, 300);
 		add(stopButton);
 
 		// HOME
 		homeButton = new home_button();
-		homeButton.setLocation(10, 300);
+		homeButton.setLocation(10, 400);
 		add(homeButton);
 
 		// Panels
 
 		// Position Panel
 		positionPanel = new PositionPanel();
-		positionPanel.setLocation(200, 100);
+		positionPanel.setLocation(200, 200);
 		add(positionPanel);
 
 		// Stroke Delay Panel
 		strokeDelayPanel = new StrokeDelayPanel();
-		strokeDelayPanel.setLocation(200, 200);
+		strokeDelayPanel.setLocation(200, 300);
 		add(strokeDelayPanel);
 
 		// Stroke Duration
 		strokeDurationPanel = new StrokeDurationPanel();
-		strokeDurationPanel.setLocation(200, 300);
+		strokeDurationPanel.setLocation(200, 400);
 		add(strokeDurationPanel);
 
-		// Value Boxes
-		displacementVolume = new DisplacementVolume();
-		displacementVolume.setLocation(200, 500);
-		add(displacementVolume);
+		displacementPanel = new DisplacementPanel();
+		displacementPanel.setLocation(200, 600);
+		add(displacementPanel);
 
-		positionPanel.registerDisplacementTracker(displacementVolume);
+		positionPanel.registerDisplacementTracker(displacementPanel.getDisplacementVolume());
 
 		setVisible(true);
 	}

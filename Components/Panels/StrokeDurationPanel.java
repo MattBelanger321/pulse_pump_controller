@@ -18,11 +18,11 @@ public class StrokeDurationPanel extends JPanel {
 	public final static int TITLE_X = 0;
 	public final static int TITLE_Y = 0;
 
-	public final static int SLIDER_X = 105;
+	public final static int SLIDER_X = StrokeDurationTitle.WIDTH + 5;
 	public final static int SLIDER_Y = (StrokeDurationTitle.HEIGHT - StrokeDurationSlider.HEIGHT) / 2;
 
 	public final static int VALUE_X = StrokeDurationSlider.WIDTH + SLIDER_X + 5; // + 5 for padding
-	public final static int VALUE_Y = 10;
+	public final static int VALUE_Y = (StrokeDurationTitle.HEIGHT - StrokeDurationValue.HEIGHT) / 2;;
 
 	public StrokeDurationPanel() {
 
