@@ -1,8 +1,8 @@
 package Components.TextBoxes;
 
-import javax.swing.JTextPane;
-import javax.swing.text.BadLocationException;
+import java.awt.Font;
 
+import javax.swing.JTextPane;
 import UI.Text.*;
 
 public class DisplacementVolume extends JTextPane {
@@ -17,6 +17,8 @@ public class DisplacementVolume extends JTextPane {
 	public final static int WIDTH = 75;
 	public final static int HEIGHT = 25;
 
+	private Font font;
+
 	private DisplacementVolumeDocument doc;
 
 	public DisplacementVolume() {
@@ -27,6 +29,8 @@ public class DisplacementVolume extends JTextPane {
 		setEditable(false);
 
 		setStyledDocument(doc);
+
+		setVolume(0, 0);
 	}
 
 	public void setVolume(int start, int stop) {

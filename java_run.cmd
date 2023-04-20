@@ -1,3 +1,3 @@
-cd "C:\Users\Matthew\Desktop\true_phantom\pulse_pump_controller\build"
+cd ".\build"
 
-java app.main
+java -Dsun.java2d.dpiaware=false app.main

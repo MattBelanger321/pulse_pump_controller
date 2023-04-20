@@ -3,9 +3,10 @@ package app;
 import javax.swing.*;
 
 import Components.Buttons.*;
+import Components.Panels.PositionPanel;
 import Components.Sliders.*;
 import Components.TextBoxes.*;
-import Listeners.Sliders.PositionListener;
+import Listeners.Sliders.PositionChangeListener;
 
 import java.awt.Color;
 
@@ -15,7 +16,9 @@ public class main_frame extends JFrame {
 	private stop_button stopButton;
 	private home_button homeButton;
 
-	private PositionSlider positionSlider;
+	// private PositionSlider positionSlider;
+	private PositionPanel positionPanel;
+
 	private StrokeDelaySlider strokeDelaySlider;
 	private StrokeDurationSlider strokeDurationSlider;
 
@@ -45,12 +48,12 @@ public class main_frame extends JFrame {
 		homeButton.setLocation(10, 300);
 		add(homeButton);
 
-		// Sliders
+		// Panels
 
-		// Start Stop Pos Slider
-		positionSlider = new PositionSlider();
-		positionSlider.setLocation(200, 100);
-		add(positionSlider);
+		// Position Panel
+		positionPanel = new PositionPanel();
+		positionPanel.setLocation(200, 100);
+		add(positionPanel);
 
 		// Stroke Delay
 		strokeDelaySlider = new StrokeDelaySlider();
@@ -65,10 +68,9 @@ public class main_frame extends JFrame {
 		// Value Boxes
 		displacementVolume = new DisplacementVolume();
 		displacementVolume.setLocation(200, 500);
-		displacementVolume.setVolume(positionSlider.getStart(), positionSlider.getStop());
 		add(displacementVolume);
 
-		positionSlider.addChangeListener(new PositionListener(displacementVolume));
+		positionPanel.registerDisplacementTracker(displacementVolume);
 
 		setVisible(true);
 	}
