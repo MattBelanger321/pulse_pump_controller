@@ -11,7 +11,7 @@ public class DisplacementPanel extends JPanel {
 	private DisplacementVolume value;
 
 	public final static int PANEL_WIDTH = 350;
-	public final static int PANEL_HEIGHT = 200;
+	public final static int PANEL_HEIGHT = 100;
 
 	public final static int TITLE_X = 0; // relative to panel
 	public final static int TITLE_Y = 0;

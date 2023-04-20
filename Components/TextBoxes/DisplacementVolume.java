@@ -18,6 +18,7 @@ public class DisplacementVolume extends JTextPane {
 	public final static int HEIGHT = 25;
 
 	private Font font;
+	private static final int FONT_SIZE = 16;
 
 	private DisplacementVolumeDocument doc;
 
@@ -30,7 +31,7 @@ public class DisplacementVolume extends JTextPane {
 
 		setStyledDocument(doc);
 
-		font = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
+		font = new Font(Font.SANS_SERIF, Font.PLAIN, FONT_SIZE);
 		setFont(font);
 
 		setVolume(0, 150);
@@ -39,7 +40,7 @@ public class DisplacementVolume extends JTextPane {
 	public void setVolume(int start, int stop) {
 		displacementVolume = calculateVolume(start, stop);
 
-		doc.setMessage(String.format("%.4f", displacementVolume) + "ml");
+		doc.setMessage(String.format("%.3f", displacementVolume) + "ml");
 	}
 
 	private double calculateVolume(int start, int stop) {

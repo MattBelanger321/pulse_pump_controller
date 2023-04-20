@@ -3,6 +3,7 @@ package Components.Panels;
 import javax.swing.JPanel;
 
 import Components.Sliders.StrokeDelaySlider;
+import Components.TextBoxes.BPM;
 import Components.TextBoxes.StrokeDelayTitle;
 import Components.TextBoxes.StrokeDelayValue;
 
@@ -13,7 +14,7 @@ public class StrokeDelayPanel extends JPanel {
 	private StrokeDelayValue strokeValue;
 
 	public final static int PANEL_WIDTH = 500;
-	public final static int PANEL_HEIGHT = 200;
+	public final static int PANEL_HEIGHT = 100;
 
 	public final static int TITLE_X = 0;
 	public final static int TITLE_Y = 0;
@@ -22,7 +23,7 @@ public class StrokeDelayPanel extends JPanel {
 	public final static int SLIDER_Y = (StrokeDelayTitle.HEIGHT - StrokeDelaySlider.HEIGHT) / 2;
 
 	public final static int VALUE_X = StrokeDelaySlider.WIDTH + SLIDER_X + 5; // + 5 for padding
-	public final static int VALUE_Y = 10;
+	public final static int VALUE_Y = (StrokeDelayTitle.HEIGHT - StrokeDelayValue.HEIGHT) / 2;
 
 	public StrokeDelayPanel() {
 
@@ -49,5 +50,9 @@ public class StrokeDelayPanel extends JPanel {
 
 		strokeSlider.addDelayValueChangeListener(strokeValue);
 
+	}
+
+	public void registerBPMTracker(BPM bpm) {
+		strokeSlider.addBPMTracker(bpm);
 	}
 }

@@ -3,6 +3,7 @@ package app;
 import javax.swing.*;
 
 import Components.Buttons.*;
+import Components.Panels.BPMPanel;
 import Components.Panels.DisplacementPanel;
 import Components.Panels.PositionPanel;
 import Components.Panels.StrokeDelayPanel;
@@ -20,11 +21,39 @@ public class main_frame extends JFrame {
 	private home_button homeButton;
 
 	private PositionPanel positionPanel;
-
+	private StrokeDurationPanel strokeDurationPanel;
 	private StrokeDelayPanel strokeDelayPanel;
 
 	private DisplacementPanel displacementPanel;
-	private StrokeDurationPanel strokeDurationPanel;
+	private BPMPanel bpm;
+
+	public static final int TITLE_X = 0;
+	public static final int TITLE_Y = 0;
+
+	// BUTTON COORDINATES
+	public static final int START_BUTTON_X = 10;
+	public static final int STOP_BUTTON_X = START_BUTTON_X;
+	public static final int HOME_BUTTON_X = START_BUTTON_X;
+
+	public static final int START_BUTTON_Y = 150;
+	public static final int STOP_BUTTON_Y = START_BUTTON_Y + start_button.HEIGHT + 25;
+	public static final int HOME_BUTTON_Y = STOP_BUTTON_Y + stop_button.HEIGHT + 25;
+
+	// SLIDER COORDINATES
+	public static final int POSITION_X = 200;
+	public static final int DELAY_X = POSITION_X;
+	public static final int DURATION_X = POSITION_X;
+
+	public static final int POSITION_Y = 150;
+	public static final int DELAY_Y = POSITION_Y + PositionPanel.PANEL_HEIGHT;
+	public static final int DURATION_Y = DELAY_Y + StrokeDelayPanel.PANEL_HEIGHT;
+
+	// Formula Output corrdinates
+	public static final int DISPLACEMENT_X = POSITION_X;
+	public static final int DISPLACEMENT_Y = DURATION_Y + StrokeDurationPanel.PANEL_HEIGHT;
+
+	public static final int BPM_X = POSITION_X;
+	public static final int BPM_Y = DISPLACEMENT_Y + DisplacementPanel.PANEL_HEIGHT;
 
 	public main_frame() {
 		super("Pulse Pump Controller");
@@ -34,48 +63,57 @@ public class main_frame extends JFrame {
 		getContentPane().setBackground(Color.GRAY);
 
 		title = new MainTitle();
-		title.setLocation(0, 0);
+		title.setLocation(TITLE_X, TITLE_Y);
 		add(title);
 
 		// BUTTONS
 
 		// START
 		startButton = new start_button();
-		startButton.setLocation(10, 200);
+		startButton.setLocation(START_BUTTON_X, START_BUTTON_Y);
 		add(startButton);
 
 		// STOP
 		stopButton = new stop_button();
-		stopButton.setLocation(10, 300);
+		stopButton.setLocation(STOP_BUTTON_X, STOP_BUTTON_Y);
 		add(stopButton);
 
 		// HOME
 		homeButton = new home_button();
-		homeButton.setLocation(10, 400);
+		homeButton.setLocation(HOME_BUTTON_X, HOME_BUTTON_Y);
 		add(homeButton);
 
-		// Panels
+		// Sliders
 
 		// Position Panel
 		positionPanel = new PositionPanel();
-		positionPanel.setLocation(200, 200);
+		positionPanel.setLocation(POSITION_X, POSITION_Y);
 		add(positionPanel);
 
 		// Stroke Delay Panel
 		strokeDelayPanel = new StrokeDelayPanel();
-		strokeDelayPanel.setLocation(200, 300);
+		strokeDelayPanel.setLocation(DELAY_X, DELAY_Y);
 		add(strokeDelayPanel);
 
 		// Stroke Duration
 		strokeDurationPanel = new StrokeDurationPanel();
-		strokeDurationPanel.setLocation(200, 400);
+		strokeDurationPanel.setLocation(DURATION_X, DURATION_Y);
 		add(strokeDurationPanel);
 
+		// FORMULA OUTPUTS
+
 		displacementPanel = new DisplacementPanel();
-		displacementPanel.setLocation(200, 600);
+		displacementPanel.setLocation(DISPLACEMENT_X, DISPLACEMENT_Y);
 		add(displacementPanel);
 
+		bpm = new BPMPanel();
+		bpm.setLocation(BPM_X, BPM_Y);
+		add(bpm);
+
 		positionPanel.registerDisplacementTracker(displacementPanel.getDisplacementVolume());
+
+		strokeDelayPanel.registerBPMTracker(bpm.getBPM());
+		strokeDurationPanel.registerBPMTracker(bpm.getBPM());
 
 		setVisible(true);
 	}

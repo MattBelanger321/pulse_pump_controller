@@ -3,6 +3,7 @@ package Components.Panels;
 import javax.swing.JPanel;
 
 import Components.Sliders.StrokeDurationSlider;
+import Components.TextBoxes.BPM;
 import Components.TextBoxes.StrokeDurationTitle;
 import Components.TextBoxes.StrokeDurationValue;
 
@@ -13,7 +14,7 @@ public class StrokeDurationPanel extends JPanel {
 	private StrokeDurationValue strokeValue;
 
 	public final static int PANEL_WIDTH = 1000;
-	public final static int PANEL_HEIGHT = 200;
+	public final static int PANEL_HEIGHT = 100;
 
 	public final static int TITLE_X = 0;
 	public final static int TITLE_Y = 0;
@@ -49,5 +50,9 @@ public class StrokeDurationPanel extends JPanel {
 
 		strokeSlider.addDurationValueChangeListener(strokeValue);
 
+	}
+
+	public void registerBPMTracker(BPM bpm) {
+		strokeSlider.addBPMTracker(bpm);
 	}
 }
