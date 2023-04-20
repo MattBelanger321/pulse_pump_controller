@@ -5,12 +5,12 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-public class PositionSliderTitleDocument extends DefaultStyledDocument {
+public class StrokeDurationTitleDocument extends DefaultStyledDocument {
 
 	private SimpleAttributeSet center;
 	private String message;
 
-	public PositionSliderTitleDocument() {
+	public StrokeDurationTitleDocument() {
 
 		message = "";
 
@@ -18,6 +18,8 @@ public class PositionSliderTitleDocument extends DefaultStyledDocument {
 
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		setParagraphAttributes(0, getLength(), center, false);
+
+		setMessage("Stroke\nDuration(ms)");
 	}
 
 	public void setMessage(String message) {

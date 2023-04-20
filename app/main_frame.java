@@ -4,6 +4,8 @@ import javax.swing.*;
 
 import Components.Buttons.*;
 import Components.Panels.PositionPanel;
+import Components.Panels.StrokeDelayPanel;
+import Components.Panels.StrokeDurationPanel;
 import Components.Sliders.*;
 import Components.TextBoxes.*;
 import Listeners.Sliders.PositionChangeListener;
@@ -16,13 +18,12 @@ public class main_frame extends JFrame {
 	private stop_button stopButton;
 	private home_button homeButton;
 
-	// private PositionSlider positionSlider;
 	private PositionPanel positionPanel;
 
-	private StrokeDelaySlider strokeDelaySlider;
-	private StrokeDurationSlider strokeDurationSlider;
+	private StrokeDelayPanel strokeDelayPanel;
 
 	private DisplacementVolume displacementVolume;
+	private StrokeDurationPanel strokeDurationPanel;
 
 	public main_frame() {
 		super("Pulse Pump Controller");
@@ -55,15 +56,15 @@ public class main_frame extends JFrame {
 		positionPanel.setLocation(200, 100);
 		add(positionPanel);
 
-		// Stroke Delay
-		strokeDelaySlider = new StrokeDelaySlider();
-		strokeDelaySlider.setLocation(200, 200);
-		add(strokeDelaySlider);
+		// Stroke Delay Panel
+		strokeDelayPanel = new StrokeDelayPanel();
+		strokeDelayPanel.setLocation(200, 200);
+		add(strokeDelayPanel);
 
 		// Stroke Duration
-		strokeDurationSlider = new StrokeDurationSlider();
-		strokeDurationSlider.setLocation(200, 300);
-		add(strokeDurationSlider);
+		strokeDurationPanel = new StrokeDurationPanel();
+		strokeDurationPanel.setLocation(200, 300);
+		add(strokeDurationPanel);
 
 		// Value Boxes
 		displacementVolume = new DisplacementVolume();

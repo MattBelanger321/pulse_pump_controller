@@ -1,18 +1,16 @@
 package UI.Text;
 
-import java.awt.Font;
-
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-public class PositionSliderValueDocument extends DefaultStyledDocument {
+public class PositionTitleDocument extends DefaultStyledDocument {
 
 	private SimpleAttributeSet center;
 	private String message;
 
-	public PositionSliderValueDocument() {
+	public PositionTitleDocument() {
 
 		message = "";
 

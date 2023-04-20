@@ -18,14 +18,25 @@ public class PositionSlider extends RangeSlider {
 
 		setBackground(Color.BLACK);
 
+		setStop(150);
+		setStart(0);
+
+	}
+
+	public void setStop(int stop) {
+		setUpperValue(stop);
+	}
+
+	public void setStart(int start) {
+		setValue(start);
 	}
 
 	public int getStop() {
-		return getValue();
+		return getUpperValue();
 	}
 
 	public int getStart() {
-		return getUpperValue();
+		return getValue();
 	}
 
 	public void addPositionChangeListener(PositionChangeListener listener) {

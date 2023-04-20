@@ -1,40 +1,42 @@
 package Components.Panels;
 
-import java.awt.Color;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 
 import Components.Sliders.PositionSlider;
 import Components.TextBoxes.DisplacementVolume;
-import Components.TextBoxes.PositionSliderTitle;
-import Components.TextBoxes.PositionSliderValue;
+import Components.TextBoxes.PositionTitle;
+import Components.TextBoxes.PositionValue;
 import Listeners.Sliders.PositionChangeListener;;
 
 public class PositionPanel extends JPanel {
 
 	private PositionSlider positionSlider;
-	private PositionSliderTitle sliderTitle;
-	private PositionSliderValue sliderValue;
+	private PositionTitle sliderTitle;
+	private PositionValue sliderValue;
 
-	public final static int SLIDER_X = 105;
-	public final static int SLIDER_Y = (PositionSliderTitle.HEIGHT - PositionSlider.POSITION_HEIGHT) / 2;
+	public final static int PANEL_WIDTH = 500;
+	public final static int PANEL_HEIGHT = 200;
 
+	public final static int TITLE_X = 0; // relative to panel
+	public final static int TITLE_Y = 0;
+
+	public final static int SLIDER_X = 105; // relative to panel
+	public final static int SLIDER_Y = (PositionTitle.HEIGHT - PositionSlider.POSITION_HEIGHT) / 2;
+
+	// relative to panel
 	public final static int VALUE_X = PositionSlider.POSITION_WIDTH + SLIDER_X + 5; // + 5 for padding
 	public final static int VALUE_Y = 10;
 
 	public PositionPanel() {
 
 		setOpaque(false);
-		setSize(500, 200);
+		setSize(PANEL_WIDTH, PANEL_HEIGHT);
 
 		setLayout(null);
 
-		sliderTitle = new PositionSliderTitle();
-		sliderTitle.setLocation(0, 0);
-		sliderTitle.setTitle("Position\nSlider");
+		sliderTitle = new PositionTitle();
+		sliderTitle.setLocation(TITLE_X, TITLE_Y);
+		sliderTitle.setTitle("Position (mm)");
 		add(sliderTitle);
 
 		// Start Stop Pos Slider
@@ -43,7 +45,7 @@ public class PositionPanel extends JPanel {
 		add(positionSlider);
 
 		// Value Display
-		sliderValue = new PositionSliderValue(positionSlider.getStart(), positionSlider.getStop());
+		sliderValue = new PositionValue(positionSlider.getStart(), positionSlider.getStop());
 		sliderValue.setLocation(VALUE_X, VALUE_Y);
 		add(sliderValue);
 
