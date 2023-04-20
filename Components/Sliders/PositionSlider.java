@@ -46,6 +46,8 @@ public class PositionSlider extends RangeSlider {
 
 	public void registerDisplacementTracker(DisplacementVolume tracker, PositionValue sliderValue) {
 		listener = new PositionChangeListener(tracker, sliderValue);
+
+		addChangeListener(listener);
 	}
 
 	public void addArduino(Arduino arduino) {
