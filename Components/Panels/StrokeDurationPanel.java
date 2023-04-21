@@ -9,10 +9,11 @@ import Components.TextBoxes.StrokeDurationValue;
 import app.Arduino;
 
 public class StrokeDurationPanel extends JPanel {
-
 	private StrokeDurationSlider strokeSlider;
 	private StrokeDurationTitle strokeTitle;
 	private StrokeDurationValue strokeValue;
+
+	public static final int DEFAULT_DURATION = StrokeDurationSlider.DEFAULT_DELAY;
 
 	public final static int PANEL_WIDTH = 1000;
 	public final static int PANEL_HEIGHT = 100;

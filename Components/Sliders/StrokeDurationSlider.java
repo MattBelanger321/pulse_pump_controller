@@ -10,6 +10,9 @@ import Listeners.Sliders.StrokeDurationChangeListener;
 import app.Arduino;
 
 public class StrokeDurationSlider extends JSlider {
+
+	public static final int DEFAULT_DELAY = 0;
+
 	public final static int MAX = 10000;
 	public final static int MIN = 0;
 
@@ -24,7 +27,7 @@ public class StrokeDurationSlider extends JSlider {
 		setSize(WIDTH, HEIGHT);
 
 		setBackground(Color.CYAN);
-		setValue(0);
+		setValue(DEFAULT_DELAY);
 	}
 
 	public void addDurationValueChangeListener(StrokeDurationValue value) {

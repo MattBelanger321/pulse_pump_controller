@@ -12,10 +12,13 @@ public class StrokeDelayChangeListener implements ChangeListener {
 
 	private StrokeDelayValue value;
 	private BPM bpm;
+	private Arduino arduino;
 
 	public StrokeDelayChangeListener(StrokeDelayValue value, BPM bpm) {
 		this.value = value;
 		this.bpm = bpm;
+
+		arduino = null;
 	}
 
 	public StrokeDelayChangeListener(StrokeDelayValue value) {
@@ -27,10 +30,16 @@ public class StrokeDelayChangeListener implements ChangeListener {
 	public void stateChanged(ChangeEvent e) {
 		StrokeDelaySlider strokeDelaySlider = (StrokeDelaySlider) e.getSource(); // get the calling object
 
-		value.setValue(strokeDelaySlider.getValue());
+		int delay = strokeDelaySlider.getValue();
+
+		value.setValue(delay);
 
 		if (bpm != null) {
-			bpm.setDelay(strokeDelaySlider.getValue());
+			bpm.setDelay(delay);
+		}
+
+		if (arduino != null) {
+			arduino.sendDelay(delay);
 		}
 	}
 
@@ -39,6 +48,7 @@ public class StrokeDelayChangeListener implements ChangeListener {
 	}
 
 	public void addArduino(Arduino arduino) {
+		this.arduino = arduino;
 	}
 
 }

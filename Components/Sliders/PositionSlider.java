@@ -14,6 +14,9 @@ public class PositionSlider extends RangeSlider {
 	public final static int POSITION_WIDTH = 200;
 	public final static int POSITION_HEIGHT = 25;
 
+	public final static int DEFAULT_START = 0;
+	public final static int DEFAULT_STOP = 150;
+
 	PositionChangeListener listener;
 
 	public PositionSlider() {
@@ -23,8 +26,8 @@ public class PositionSlider extends RangeSlider {
 
 		setBackground(Color.BLACK);
 
-		setStop(150);
-		setStart(0);
+		setStop(DEFAULT_STOP);
+		setStart(DEFAULT_START);
 
 	}
 

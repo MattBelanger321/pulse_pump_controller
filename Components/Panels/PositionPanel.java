@@ -17,6 +17,9 @@ public class PositionPanel extends JPanel {
 	private PositionTitle sliderTitle;
 	private PositionValue sliderValue;
 
+	public final static int DEFAULT_START = PositionSlider.DEFAULT_START;
+	public final static int DEFAULT_STOP = PositionSlider.DEFAULT_START;
+
 	public final static int PANEL_WIDTH = 500;
 	public final static int PANEL_HEIGHT = 100;
 

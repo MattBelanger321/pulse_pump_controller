@@ -14,6 +14,8 @@ public class StrokeDelayPanel extends JPanel {
 	private StrokeDelayTitle strokeTitle;
 	private StrokeDelayValue strokeValue;
 
+	public final static int DEFAULT_DELAY = StrokeDelaySlider.DEFAULT_DELAY;
+
 	public final static int PANEL_WIDTH = 500;
 	public final static int PANEL_HEIGHT = 100;
 

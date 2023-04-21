@@ -12,10 +12,13 @@ public class StrokeDurationChangeListener implements ChangeListener {
 
 	private StrokeDurationValue value;
 	private BPM bpm;
+	private Arduino arduino;
 
 	public StrokeDurationChangeListener(StrokeDurationValue value, BPM bpm) {
 		this.value = value;
 		this.bpm = bpm;
+
+		arduino = null;
 	}
 
 	public StrokeDurationChangeListener(StrokeDurationValue value) {
@@ -27,10 +30,16 @@ public class StrokeDurationChangeListener implements ChangeListener {
 	public void stateChanged(ChangeEvent e) {
 		StrokeDurationSlider durationSlider = (StrokeDurationSlider) e.getSource(); // get the calling object
 
-		value.setValue(durationSlider.getValue());
+		int duration = durationSlider.getValue();
+
+		value.setValue(duration);
 
 		if (bpm != null) {
-			bpm.setDuration(durationSlider.getValue());
+			bpm.setDuration(duration);
+		}
+
+		if (arduino != null) {
+			arduino.sendDuration(duration);
 		}
 	}
 
@@ -39,6 +48,6 @@ public class StrokeDurationChangeListener implements ChangeListener {
 	}
 
 	public void addArduino(Arduino arduino) {
+		this.arduino = arduino;
 	}
-
 }
