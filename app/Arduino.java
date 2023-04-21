@@ -7,22 +7,46 @@ import com.fazecast.jSerialComm.*;
 // This class will send messages to the arduino
 
 public class Arduino {
-	private static String portDescriptor = "PCI Serial Port";
+	private static String portDescriptor = "Arduino Uno";
 	private SerialPort port;
 
-	public Arduino() {
+	public Arduino() throws Exception {
 
 		SerialPort ports[] = SerialPort.getCommPorts();
 
 		SerialPort.getCommPort(portDescriptor);
 
 		for (SerialPort p : ports) {
-			if (p.getPortDescription().equals(portDescriptor)) {
+			if (p.getPortDescription().indexOf(portDescriptor, 0) >= 0) {
 				port = p;
 				break;
 			}
-			System.out.println(p);
 		}
+
+		port.setBaudRate(9600);
+
+		boolean open = port.openPort();
+
+		System.out.println(open);
+
+		byte[] A = { 'A' };
+		byte[] in = { 0 };
+
+		while (in[0] == 0)
+			port.readBytes(in, 1);
+
+		System.out.println("Handshake Requested");
+
+		int bytes_written = 0;
+
+		while (bytes_written == 0) {
+			bytes_written = port.writeBytes(A, 1);
+		}
+
+		if (in[0] == 'H')
+			System.out.println("Handshake Completed");
+		else
+			throw new Exception("Bad Handshake Recieved");
 	}
 
 	public void sendStart() {
@@ -125,6 +149,11 @@ public class Arduino {
 	}
 
 	public boolean isOpen() {
+
+		if (port == null) {
+			return false;
+		}
+
 		return port.isOpen();
 	}
 }
