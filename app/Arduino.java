@@ -1,7 +1,5 @@
 package app;
 
-import java.nio.ByteBuffer;
-
 import com.fazecast.jSerialComm.*;
 
 // This class will send messages to the arduino
@@ -14,8 +12,6 @@ public class Arduino {
 
 		SerialPort ports[] = SerialPort.getCommPorts();
 
-		SerialPort.getCommPort(portDescriptor);
-
 		for (SerialPort p : ports) {
 			if (p.getPortDescription().indexOf(portDescriptor, 0) >= 0) {
 				port = p;
@@ -23,11 +19,17 @@ public class Arduino {
 			}
 		}
 
+		if (port == null) {
+			for (SerialPort p : ports) {
+				System.out.println(p);
+			}
+
+			throw new Exception("No " + portDescriptor + " Port Was Found");
+		}
+
 		port.setBaudRate(9600);
 
-		boolean open = port.openPort();
-
-		System.out.println(open);
+		port.openPort();
 
 		byte[] A = { 'A' };
 		byte[] in = { 0 };
@@ -46,7 +48,9 @@ public class Arduino {
 		if (in[0] == 'H')
 			System.out.println("Handshake Completed");
 		else
-			throw new Exception("Bad Handshake Recieved");
+			throw new Exception("Bad Handshake Recieved: " + (int) in[0]);
+
+		port.flushIOBuffers();
 	}
 
 	public void sendStart() {

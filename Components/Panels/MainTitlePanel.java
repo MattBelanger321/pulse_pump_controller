@@ -1,7 +1,5 @@
 package Components.Panels;
 
-import java.awt.Color;
-
 import javax.swing.JPanel;
 
 import Components.TextBoxes.MainTitle;

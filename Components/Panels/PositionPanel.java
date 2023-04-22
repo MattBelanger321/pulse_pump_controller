@@ -2,13 +2,11 @@ package Components.Panels;
 
 import javax.swing.JPanel;
 
-import org.w3c.dom.stylesheets.LinkStyle;
-
 import Components.Sliders.PositionSlider;
 import Components.TextBoxes.DisplacementVolume;
 import Components.TextBoxes.PositionTitle;
 import Components.TextBoxes.PositionValue;
-import Listeners.Sliders.PositionChangeListener;
+
 import app.Arduino;;
 
 public class PositionPanel extends JPanel {

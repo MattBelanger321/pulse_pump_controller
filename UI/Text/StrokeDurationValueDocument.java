@@ -1,7 +1,5 @@
 package UI.Text;
 
-import java.awt.Font;
-
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.SimpleAttributeSet;

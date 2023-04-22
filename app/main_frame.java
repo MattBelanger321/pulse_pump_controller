@@ -120,17 +120,17 @@ public class main_frame extends JFrame {
 		strokeDelayPanel.registerBPMTracker(bpm.getBPM());
 		strokeDurationPanel.registerBPMTracker(bpm.getBPM());
 
-		startButton.addArduino(arduino);
-		stopButton.addArduino(arduino);
-		homeButton.addArduino(arduino);
-		positionPanel.addArduino(arduino);
-		strokeDelayPanel.addArduino(arduino);
-		strokeDurationPanel.addArduino(arduino);
+		startButton.addArduino(this.arduino);
+		stopButton.addArduino(this.arduino);
+		homeButton.addArduino(this.arduino);
+		positionPanel.addArduino(this.arduino);
+		strokeDelayPanel.addArduino(this.arduino);
+		strokeDurationPanel.addArduino(this.arduino);
 
-		if (arduino.isOpen()) {
-			arduino.sendPosition(PositionPanel.DEFAULT_START, PositionPanel.DEFAULT_STOP);
-			arduino.sendDelay(StrokeDelayPanel.DEFAULT_DELAY);
-			arduino.sendDuration(StrokeDurationPanel.DEFAULT_DURATION);
+		if (this.arduino.isOpen()) {
+			this.arduino.sendPosition(PositionPanel.DEFAULT_START, PositionPanel.DEFAULT_STOP);
+			this.arduino.sendDelay(StrokeDelayPanel.DEFAULT_DELAY);
+			this.arduino.sendDuration(StrokeDurationPanel.DEFAULT_DURATION);
 		}
 
 		setVisible(true);

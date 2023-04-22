@@ -1,11 +1,11 @@
 package app;
 
-class main {
+class app {
 
 	public static void main(String[] args) throws Exception {
 
 		Arduino arduino = new Arduino();
 
-		main_frame arduino_gui = new main_frame(arduino);
+		new main_frame(arduino);
 	}
 }
