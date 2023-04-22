@@ -3,6 +3,8 @@
 #include <Thread.h>
 #include <ThreadController.h>
 
+#include <string.h>
+
 // Define stepper motor connections
 #define STEP_PIN         9   // PUL+
 #define DIR_PIN          8   // DIR+
@@ -24,7 +26,7 @@ AccelStepper stepper( AccelStepper::DRIVER, STEP_PIN, DIR_PIN );
 int currentPosition = HOME_POSITION;
 
 
-// IO Constants
+// IO
 
 #define TERMINATOR ';'
 
@@ -45,6 +47,37 @@ void initStepper()
     stepper.setCurrentPosition( HOME_POSITION );  // Set motor position to home position
     currentPosition = HOME_POSITION;              // Set current position to home position
 
+}
+
+#define MAX_MESSAGE_SIZE 128
+#define MAX_QUEUE_SIZE 128
+
+
+// this is a queue of strings that will hold unhandled commands
+//  readFromPanel() will produce stepper will consume
+int queueSize = 0;
+int msgQueue[MAX_QUEUE_SIZE];    
+
+
+// These integers will denote what command was recieved
+#define POSITION_COM 0
+#define DELAY_COM 1
+#define DURATION_COM 2
+#define START_COM 3
+#define STOP_COM 4
+#define HOME_COM 5
+#define UNKNOWN_COM 6
+
+void readPosition(int offset, char * message){
+
+}
+
+void readDelay(int offset, char * message){
+
+}
+
+void readDuration(int offset, char * message){
+    
 }
 
 void stepperLoop()
@@ -88,13 +121,51 @@ void establishConnection(){
     handshake();  // send a byte to establish contact until receiver responds
 }
 
-#define MESSAGE_SIZE 128
 
+
+// Producer
 void readFromPanel() {
-    char message[MESSAGE_SIZE];
-    int bytes = Serial.readBytesUntil(TERMINATOR, message, MESSAGE_SIZE);
+    char message[MAX_MESSAGE_SIZE] = {0};
+    short bytes = Serial.readBytesUntil(TERMINATOR, message, MAX_MESSAGE_SIZE);
 
-    // TODO: Use Message
+    short messageOffset = 0;
+
+    for(; messageOffset < bytes; messageOffset++){
+        if(message[messageOffset] == ';' || message[messageOffset] == ':'){  // If delimeter is hit
+            message[messageOffset] = '\0'; //the string libs look for this char
+            messageOffset++;
+            break;  //and move on
+        }
+    }
+
+    if(strcmp("POSITION", message) == 0) {
+        msgQueue[queueSize++] = POSITION_COM;
+    
+        readPosition(messageOffset, message);
+    
+    } else if(strcmp("DELAY", message) == 0) {
+        msgQueue[queueSize++] = DELAY_COM;
+    
+        readDelay(messageOffset, message);
+    
+    } else if(strcmp("DURATION", message) == 0) {
+        msgQueue[queueSize++] = DURATION_COM;
+
+        readDuration(messageOffset, message);
+    
+    } else if(strcmp("START", message) == 0) {
+    
+        msgQueue[queueSize++] = START_COM;
+    
+    } else if(strcmp("STOP", message) == 0) {
+    
+        msgQueue[queueSize++] =  STOP_COM;
+    
+    } else if(strcmp("HOME", message) == 0) {
+
+        msgQueue[queueSize++] = HOME_COM;
+    
+    }
 }
 
 // ThreadController that will controll all threads
