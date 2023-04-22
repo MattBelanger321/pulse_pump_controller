@@ -68,16 +68,28 @@ int msgQueue[MAX_QUEUE_SIZE];
 #define HOME_COM 5
 #define UNKNOWN_COM 6
 
-void readPosition(int offset, char * message){
+void readPosition(short offset, char * message, short length){
 
 }
 
-void readDelay(int offset, char * message){
+void readDelay(short offset, char * message, short length){
+    int messageOffset = offset;
 
+    for(; messageOffset < length; messageOffset++){
+        if(message[messageOffset] == ';' || message[messageOffset] == ':'){  // If delimeter is hit
+            message[messageOffset] = '\0'; //the string libs look for this char
+            messageOffset++;
+            break;  //and move on
+        }
+    }
+
+    int delay = atoi(message + offset);
+
+    Serial.print(delay);
 }
 
-void readDuration(int offset, char * message){
-    
+void readDuration(short offset, char * message, short length){
+
 }
 
 void stepperLoop()
@@ -141,17 +153,17 @@ void readFromPanel() {
     if(strcmp("POSITION", message) == 0) {
         msgQueue[queueSize++] = POSITION_COM;
     
-        readPosition(messageOffset, message);
+        readPosition(messageOffset, message, bytes);
     
     } else if(strcmp("DELAY", message) == 0) {
         msgQueue[queueSize++] = DELAY_COM;
     
-        readDelay(messageOffset, message);
+        readDelay(messageOffset, message, bytes);
     
     } else if(strcmp("DURATION", message) == 0) {
         msgQueue[queueSize++] = DURATION_COM;
 
-        readDuration(messageOffset, message);
+        readDuration(messageOffset, message, bytes);
     
     } else if(strcmp("START", message) == 0) {
     
