@@ -26,6 +26,11 @@ AccelStepper stepper( AccelStepper::DRIVER, STEP_PIN, DIR_PIN );
 int currentPosition = HOME_POSITION;
 
 
+short positionStart;
+short positionEnd;
+short strokeDelay;
+short strokeDuration;
+
 // IO
 
 #define TERMINATOR ';'
@@ -69,6 +74,33 @@ int msgQueue[MAX_QUEUE_SIZE];
 #define UNKNOWN_COM 6
 
 void readPosition(short offset, char * message, short length){
+    int messageOffset = offset;
+
+    for(; messageOffset < length; messageOffset++){
+        if(message[messageOffset] == ';' || message[messageOffset] == ':'){  // If delimeter is hit
+            message[messageOffset] = '\0'; //the string libs look for this char
+            messageOffset++;
+            break;  //and move on
+        }
+    }
+
+    positionStart = atoi(message + offset);
+
+    Serial.print(positionStart);
+
+    offset = messageOffset;
+
+    for(; messageOffset < length; messageOffset++){
+        if(message[messageOffset] == ';' || message[messageOffset] == ':'){  // If delimeter is hit
+            message[messageOffset] = '\0'; //the string libs look for this char
+            messageOffset++;
+            break;  //and move on
+        }
+    }
+
+    positionEnd = atoi(message + offset);
+
+    Serial.print(positionEnd);
 
 }
 
@@ -83,13 +115,25 @@ void readDelay(short offset, char * message, short length){
         }
     }
 
-    int delay = atoi(message + offset);
+    strokeDelay = atoi(message + offset);
 
-    Serial.print(delay);
+    Serial.print(strokeDelay);
 }
 
 void readDuration(short offset, char * message, short length){
+    int messageOffset = offset;
 
+    for(; messageOffset < length; messageOffset++){
+        if(message[messageOffset] == ';' || message[messageOffset] == ':'){  // If delimeter is hit
+            message[messageOffset] = '\0'; //the string libs look for this char
+            messageOffset++;
+            break;  //and move on
+        }
+    }
+
+    strokeDuration = atoi(message + offset);
+
+    Serial.print(strokeDuration);
 }
 
 void stepperLoop()
