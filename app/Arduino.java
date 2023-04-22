@@ -1,5 +1,7 @@
 package app;
 
+import java.nio.charset.StandardCharsets;
+
 import com.fazecast.jSerialComm.*;
 
 // This class will send messages to the arduino
@@ -27,7 +29,12 @@ public class Arduino {
 			throw new Exception("No " + portDescriptor + " Port Was Found");
 		}
 
+		// 9600 8n1
 		port.setBaudRate(9600);
+		port.setParity(SerialPort.NO_PARITY);
+		port.setNumStopBits(SerialPort.ONE_STOP_BIT);
+		port.setNumDataBits(8);
+		port.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 5000, 5000);
 
 		port.openPort();
 
@@ -57,6 +64,10 @@ public class Arduino {
 		String message = "START;";
 
 		byte[] byteStream = message.getBytes();
+
+		for (byte b : byteStream) {
+			System.out.println((int) b);
+		}
 
 		System.out.println("Writing: " + message);
 
