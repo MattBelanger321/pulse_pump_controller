@@ -17,8 +17,8 @@ public class BPM extends JTextPane {
 	private Font font;
 	private static final int FONT_SIZE = 16;
 
-	private int strokeDelay;
-	private int strokeDuration;
+	private int strokeDelay; // in ms
+	private int strokeDuration; // in us
 
 	private BPMDocument doc;
 
@@ -45,7 +45,7 @@ public class BPM extends JTextPane {
 		setBPM(strokeDelay, strokeDuration);
 	}
 
-	public void setDuration(int duration) {
+	public void setDuration(int duration) { // duration in us
 		strokeDuration = duration;
 
 		setBPM(strokeDelay, strokeDuration);
@@ -57,12 +57,13 @@ public class BPM extends JTextPane {
 		doc.setMessage(String.format("%.3f", bpm));
 	}
 
-	private double calculateBPM(int strokeDelay, int strokeDuration) {
+	private double calculateBPM(int strokeDelay, int strokeDuration) { // delay in ms duration in us
 
 		if (strokeDelay == 0 && strokeDuration == 0) {
 			return 0;
 		}
 
-		return 60000 / (double) (strokeDelay + (2 * strokeDuration)); // a beat is 2 strokes plus delay
+		return 60000 / (double) (strokeDelay + (2 * strokeDuration / 1000.0)); // a beat is 2 strokes plus
+																				// delay
 	}
 }

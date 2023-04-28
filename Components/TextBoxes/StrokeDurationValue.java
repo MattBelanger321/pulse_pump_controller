@@ -38,7 +38,7 @@ public class StrokeDurationValue extends JTextPane {
 	}
 
 	public void setValue(int value) {
-		doc.setMessage(String.format("%dms", value));
+		doc.setMessage(String.format("%dus", value));
 	}
 
 }

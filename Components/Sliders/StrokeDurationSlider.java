@@ -22,7 +22,7 @@ public class StrokeDurationSlider extends JSlider {
 	StrokeDurationChangeListener listener;
 
 	public StrokeDurationSlider() {
-		super(MIN, MAX); // in ms
+		super(MIN, MAX); // in us
 
 		setSize(WIDTH, HEIGHT);
 

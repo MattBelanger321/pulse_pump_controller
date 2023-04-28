@@ -19,7 +19,7 @@ public class StrokeDurationTitleDocument extends DefaultStyledDocument {
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		setParagraphAttributes(0, getLength(), center, false);
 
-		setMessage("Stroke\nDuration(ms)");
+		setMessage("Stroke\nDuration(us)");
 	}
 
 	public void setMessage(String message) {
