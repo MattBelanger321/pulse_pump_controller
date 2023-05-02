@@ -31,7 +31,6 @@ short strokeDelay;           // in ms
 short strokeDuration;        // in us
 
 bool start;
-bool home_flag;
 // IO
 
 #define TERMINATOR ';'
@@ -43,8 +42,8 @@ void initStepper()
     pinMode( LIMIT_SWITCH_PIN, INPUT_PULLUP );
 
     // Set up motor speed and acceleration
-    stepper.setMaxSpeed( 5000 );      // Adjust speed as needed
-    stepper.setAcceleration( 5000 );  // Adjust acceleration as needed
+    stepper.setMaxSpeed( 5000 );        // Adjust speed as needed
+    stepper.setAcceleration( 500000 );  // Adjust acceleration as needed
 
     // // Move motor to home position
     while ( digitalRead( LIMIT_SWITCH_PIN ) == HIGH ) {
@@ -174,10 +173,13 @@ void readFromPanel()
         // msgQueue[queueSize++] =  STOP_COM;
     }
     else if ( strcmp( "HOME", message ) == 0 ) {
+        start = false;
 
-        // msgQueue[queueSize++] = HOME_COM;
-        home_flag = true;  // next loop main call needs to go home
-        start     = false;
+        stepper.setMaxSpeed( 5000 );
+        // Move motor home
+        stepper.moveTo( HOME_POSITION );
+        stepper.runToPosition();
+        currentPosition = HOME_POSITION;  // Update current position
     }
 }
 
@@ -202,24 +204,10 @@ short getCommand()
     return dequeue();
 }
 
-void processCommand()
-{
-    // short com = getCommand();
-    if ( home_flag ) {
-        stepper.setMaxSpeed( 5000 );
-        // Move motor home
-        stepper.moveTo( HOME_POSITION );
-        stepper.runToPosition();
-        currentPosition = HOME_POSITION;  // Update current position
-        home_flag       = false;
-    }
-}
-
 // MAIN FUNCTION
 void stepperLoop()
 {
     readFromPanel();
-    processCommand();
 
     if ( stepper.currentPosition() < positionStart ) {  // resetting from home or re_configuring
         stepper.setMaxSpeed( 5000 );                    // speed in steps/ second
@@ -228,12 +216,14 @@ void stepperLoop()
     if ( start ) {
         // Move motor to position 1
         stepper.moveTo( positionStart );
+        stepper.setMaxSpeed( ( positionEnd - positionStart ) * 1000000 / strokeDuration );  // speed in steps/ second
         while ( start && stepper.run() ) {
             currentPosition = stepper.currentPosition();  // Update current position
             readFromPanel();
             if ( stepper.currentPosition() >= positionStart ) {
                 // clang-format off
-                stepper.setMaxSpeed( ( positionEnd - positionStart ) * 1000000 / strokeDuration );  // speed in steps/ second
+                stepper.setMaxSpeed( /*( positionEnd - positionStart ) * 1000000 / strokeDuration*/5000 );  // speed
+                // in steps/ second
                 // clang-format on
             }
         }
@@ -244,11 +234,12 @@ void stepperLoop()
 
         // Move motor to position 2
         stepper.moveTo( positionEnd );
+        stepper.setMaxSpeed( ( positionEnd - positionStart ) * 1000000 / strokeDuration );  // speed in steps/ second
         while ( start && stepper.run() ) {
             currentPosition = stepper.currentPosition();  // Update current position
             readFromPanel();
             // clang-format off
-            stepper.setMaxSpeed(( positionEnd - positionStart ) * 1000000 / strokeDuration);  // speed in steps/ second
+            stepper.setMaxSpeed( ( positionEnd - positionStart ) * 1000000 / strokeDuration );  // speed in steps/ second
             // clang-format on
         }
 

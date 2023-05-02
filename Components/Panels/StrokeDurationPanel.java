@@ -36,7 +36,6 @@ public class StrokeDurationPanel extends JPanel {
 
 		strokeTitle = new StrokeDurationTitle();
 		strokeTitle.setLocation(TITLE_X, TITLE_Y);
-		strokeTitle.setTitle("Stroke\nDuration (ms)");
 		add(strokeTitle);
 
 		// Start Stop Pos Slider

@@ -1,0 +1,1 @@
+for /f "tokens=1*" %%a in ('arduino-cli board list ^| findstr /c:"Arduino Uno"') do arduino-cli upload -b arduino:avr:uno -p %%a pulse_pump_controller\pulse_pump_controller.ino
