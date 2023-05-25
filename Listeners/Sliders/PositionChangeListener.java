@@ -53,7 +53,7 @@ public class PositionChangeListener implements ChangeListener {
 		}
 
 		if (durationSlider != null) {
-			durationSlider.setMinimum((int) ((stop - start) / (float) 100 * 4000));
+			durationSlider.setMinimum((int) ((stop - start) / (float) 100 * 2000));
 		}
 
 	}

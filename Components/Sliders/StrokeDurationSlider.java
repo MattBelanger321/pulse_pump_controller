@@ -11,9 +11,9 @@ import app.Arduino;
 
 public class StrokeDurationSlider extends JSlider {
 
-	public static final int DEFAULT_DURATION = 6000;
+	public static final int DEFAULT_DURATION = 3000;
 
-	private int min = 6000;
+	private int min = 3000;
 	private int max = 24000;
 
 	public final static int WIDTH = 250;
@@ -22,7 +22,7 @@ public class StrokeDurationSlider extends JSlider {
 	StrokeDurationChangeListener listener;
 
 	public StrokeDurationSlider() {
-		super(6000, 24000); // in ms
+		super(3000, 24000); // in ms
 
 		setSize(WIDTH, HEIGHT);
 

@@ -13,7 +13,7 @@ public class StrokeDurationPanel extends JPanel {
 	private StrokeDurationTitle strokeTitle;
 	private StrokeDurationValue strokeValue;
 
-	public static final int DEFAULT_DURATION = 6000;
+	public static final int DEFAULT_DURATION = 3000;
 
 	public final static int PANEL_WIDTH = 1000;
 	public final static int PANEL_HEIGHT = 100;

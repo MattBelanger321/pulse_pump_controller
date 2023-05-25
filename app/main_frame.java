@@ -129,7 +129,8 @@ public class main_frame extends JFrame {
 		strokeDurationPanel.addArduino(this.arduino);
 
 		if (this.arduino.isOpen()) {
-			this.arduino.sendPosition(PositionPanel.DEFAULT_START, PositionPanel.DEFAULT_STOP);
+			this.arduino.sendPosition(PositionPanel.DEFAULT_START,
+					PositionPanel.DEFAULT_STOP);
 			this.arduino.sendDelay(StrokeDelayPanel.DEFAULT_DELAY);
 			this.arduino.sendDuration(StrokeDurationPanel.DEFAULT_DURATION);
 		}
