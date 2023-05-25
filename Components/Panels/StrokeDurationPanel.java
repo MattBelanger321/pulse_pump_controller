@@ -13,7 +13,7 @@ public class StrokeDurationPanel extends JPanel {
 	private StrokeDurationTitle strokeTitle;
 	private StrokeDurationValue strokeValue;
 
-	public static final int DEFAULT_DURATION = StrokeDurationSlider.DEFAULT_DELAY;
+	public static final int DEFAULT_DURATION = 6000;
 
 	public final static int PANEL_WIDTH = 1000;
 	public final static int PANEL_HEIGHT = 100;
@@ -51,6 +51,10 @@ public class StrokeDurationPanel extends JPanel {
 
 		strokeSlider.addDurationValueChangeListener(strokeValue);
 
+	}
+
+	public StrokeDurationSlider getSlider() {
+		return strokeSlider;
 	}
 
 	public void registerBPMTracker(BPM bpm) {

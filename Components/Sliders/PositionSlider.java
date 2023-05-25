@@ -8,16 +8,17 @@ import Listeners.Sliders.PositionChangeListener;
 import app.Arduino;
 
 public class PositionSlider extends RangeSlider {
-	public final static int POSITION_MAX = 150;
+	public final static int POSITION_MAX = 145;
 	public final static int POSITION_MIN = 0;
 
 	public final static int POSITION_WIDTH = 200;
 	public final static int POSITION_HEIGHT = 25;
 
 	public final static int DEFAULT_START = 0;
-	public final static int DEFAULT_STOP = 150;
+	public final static int DEFAULT_STOP = 145;
 
-	PositionChangeListener listener;
+	PositionChangeListener displacementListener;
+	PositionChangeListener durationListener;
 
 	public PositionSlider() {
 		super(POSITION_MIN, POSITION_MAX);
@@ -48,12 +49,18 @@ public class PositionSlider extends RangeSlider {
 	}
 
 	public void registerDisplacementTracker(DisplacementVolume tracker, PositionValue sliderValue) {
-		listener = new PositionChangeListener(tracker, sliderValue);
+		displacementListener = new PositionChangeListener(tracker, sliderValue);
 
-		addChangeListener(listener);
+		addChangeListener(displacementListener);
+	}
+
+	public void registerDurationCalculator(StrokeDurationSlider slider) {
+		durationListener = new PositionChangeListener(slider);
+
+		addChangeListener(durationListener);
 	}
 
 	public void addArduino(Arduino arduino) {
-		listener.addArduino(arduino);
+		displacementListener.addArduino(arduino);
 	}
 }

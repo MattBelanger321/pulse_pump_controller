@@ -3,6 +3,7 @@ package Components.Panels;
 import javax.swing.JPanel;
 
 import Components.Sliders.PositionSlider;
+import Components.Sliders.StrokeDurationSlider;
 import Components.TextBoxes.DisplacementVolume;
 import Components.TextBoxes.PositionTitle;
 import Components.TextBoxes.PositionValue;
@@ -53,6 +54,10 @@ public class PositionPanel extends JPanel {
 		sliderValue.setLocation(VALUE_X, VALUE_Y);
 		add(sliderValue);
 
+	}
+
+	public void registerDurationCalculator(StrokeDurationSlider slider) {
+		positionSlider.registerDurationCalculator(slider);
 	}
 
 	public void registerDisplacementTracker(DisplacementVolume tracker) {

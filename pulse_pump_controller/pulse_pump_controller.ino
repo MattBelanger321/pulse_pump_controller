@@ -23,17 +23,18 @@ AccelStepper stepper( AccelStepper::DRIVER, STEP_PIN, DIR_PIN );
 // linear actuator max distance = 150mm
 
 // Initialize state variable
-int currentPosition = 0;
+long currentPosition = 0;
 
-short positionStart = 1000;  // in steps (200 steps in 1 mm)
-short positionEnd   = 5000;  // in steps (200 steps in 1 mm)
-short strokeDelay;           // in ms
-short strokeDuration;        // in us
+long positionStart = 1000;  // in steps (200 steps in 1 mm)
+long positionEnd   = 5000;  // in steps (200 steps in 1 mm)
+long strokeDelay;           // in ms
+long strokeDuration;        // in ms
 
 bool start;
 // IO
 
 #define TERMINATOR ';'
+#define SEPERATOR  ':'
 
 void initStepper()
 {
@@ -42,8 +43,8 @@ void initStepper()
     pinMode( LIMIT_SWITCH_PIN, INPUT_PULLUP );
 
     // Set up motor speed and acceleration
-    stepper.setMaxSpeed( 5000 );        // Adjust speed as needed
-    stepper.setAcceleration( 500000 );  // Adjust acceleration as needed
+    stepper.setMaxSpeed( 4000 );         // Adjust speed as needed
+    stepper.setAcceleration( 5000000 );  // Adjust acceleration as needed
 
     // // Move motor to home position
     while ( digitalRead( LIMIT_SWITCH_PIN ) == HIGH ) {
@@ -76,26 +77,26 @@ void readPosition( short offset, char * message, short length )
     int messageOffset = offset;
 
     for ( ; messageOffset < length; messageOffset++ ) {
-        if ( message[messageOffset] == ';' || message[messageOffset] == ':' ) {  // If delimeter is hit
-            message[messageOffset] = '\0';                                       // the string libs look for this char
+        if ( message[messageOffset] == TERMINATOR || message[messageOffset] == SEPERATOR ) {  // If delimeter is hit
+            message[messageOffset] = '\0';  // the string libs look for this char
             messageOffset++;
             break;  // and move on
         }
     }
 
-    positionStart = atoi( message + offset ) * 200;
+    positionStart = atoi( message + offset ) * 80;
 
     offset = messageOffset;
 
     for ( ; messageOffset < length; messageOffset++ ) {
-        if ( message[messageOffset] == ';' || message[messageOffset] == ':' ) {  // If delimeter is hit
-            message[messageOffset] = '\0';                                       // the string libs look for this char
+        if ( message[messageOffset] == TERMINATOR || message[messageOffset] == SEPERATOR ) {  // If delimeter is hit
+            message[messageOffset] = '\0';  // the string libs look for this char
             messageOffset++;
             break;  // and move on
         }
     }
 
-    positionEnd = atoi( message + offset ) * 200;
+    positionEnd = atoi( message + offset ) * 80;
 }
 
 void readDelay( short offset, char * message, short length )
@@ -103,8 +104,8 @@ void readDelay( short offset, char * message, short length )
     int messageOffset = offset;
 
     for ( ; messageOffset < length; messageOffset++ ) {
-        if ( message[messageOffset] == ';' || message[messageOffset] == ':' ) {  // If delimeter is hit
-            message[messageOffset] = '\0';                                       // the string libs look for this char
+        if ( message[messageOffset] == TERMINATOR || message[messageOffset] == SEPERATOR ) {  // If delimeter is hit
+            message[messageOffset] = '\0';  // the string libs look for this char
             messageOffset++;
             break;  // and move on
         }
@@ -118,8 +119,8 @@ void readDuration( short offset, char * message, short length )
     int messageOffset = offset;
 
     for ( ; messageOffset < length; messageOffset++ ) {
-        if ( message[messageOffset] == ';' || message[messageOffset] == ':' ) {  // If delimeter is hit
-            message[messageOffset] = '\0';                                       // the string libs look for this char
+        if ( message[messageOffset] == TERMINATOR || message[messageOffset] == SEPERATOR ) {  // If delimeter is hit
+            message[messageOffset] = '\0';  // the string libs look for this char
             messageOffset++;
             break;  // and move on
         }
@@ -141,8 +142,8 @@ void readFromPanel()
     short messageOffset = 0;
 
     for ( ; messageOffset < bytes; messageOffset++ ) {
-        if ( message[messageOffset] == ';' || message[messageOffset] == ':' ) {  // If delimeter is hit
-            message[messageOffset] = '\0';                                       // the string libs look for this char
+        if ( message[messageOffset] == TERMINATOR || message[messageOffset] == SEPERATOR ) {  // If delimeter is hit
+            message[messageOffset] = '\0';  // the string libs look for this char
             messageOffset++;
             break;  // and move on
         }
@@ -175,7 +176,7 @@ void readFromPanel()
     else if ( strcmp( "HOME", message ) == 0 ) {
         start = false;
 
-        stepper.setMaxSpeed( 5000 );
+        stepper.setMaxSpeed( 4000 );
         // Move motor home
         stepper.moveTo( HOME_POSITION );
         stepper.runToPosition();
@@ -216,14 +217,14 @@ void stepperLoop()
     if ( start ) {
         // Move motor to position 1
         stepper.moveTo( positionStart );
-        stepper.setMaxSpeed( ( positionEnd - positionStart ) * 1000000 / strokeDuration );  // speed in steps/ second
+        stepper.setMaxSpeed( ( ( positionEnd - positionStart ) * 1000 ) /
+                             (float)strokeDuration );  // speed in steps/ second
         while ( start && stepper.run() ) {
             currentPosition = stepper.currentPosition();  // Update current position
             readFromPanel();
-            if ( stepper.currentPosition() >= positionStart ) {
+            if ( stepper.currentPosition() >= positionStart ) {  // If we are coming back from end position
                 // clang-format off
-                stepper.setMaxSpeed( /*( positionEnd - positionStart ) * 1000000 / strokeDuration*/5000 );  // speed
-                // in steps/ second
+                stepper.setMaxSpeed( ( ( positionEnd - positionStart ) * 1000 ) / (float)strokeDuration );// if i can do x steps in y ms then I can do 1000 more in a second
                 // clang-format on
             }
         }
@@ -234,13 +235,13 @@ void stepperLoop()
 
         // Move motor to position 2
         stepper.moveTo( positionEnd );
-        stepper.setMaxSpeed( ( positionEnd - positionStart ) * 1000000 / strokeDuration );  // speed in steps/ second
+        stepper.setMaxSpeed( ( ( positionEnd - positionStart ) * 1000 ) /
+                             (float)strokeDuration );  // speed in steps/ second
+
         while ( start && stepper.run() ) {
             currentPosition = stepper.currentPosition();  // Update current position
             readFromPanel();
-            // clang-format off
-            stepper.setMaxSpeed( ( positionEnd - positionStart ) * 1000000 / strokeDuration );  // speed in steps/ second
-            // clang-format on
+            stepper.setMaxSpeed( ( ( positionEnd - positionStart ) * 1000 ) / (float)strokeDuration );
         }
 
         delay( strokeDelay );

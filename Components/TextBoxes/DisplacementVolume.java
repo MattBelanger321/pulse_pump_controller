@@ -34,7 +34,7 @@ public class DisplacementVolume extends JTextPane {
 		font = new Font(Font.SANS_SERIF, Font.PLAIN, FONT_SIZE);
 		setFont(font);
 
-		setVolume(0, 150);
+		setVolume(0, 145);
 	}
 
 	public void setVolume(int start, int stop) {

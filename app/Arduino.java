@@ -146,7 +146,7 @@ public class Arduino {
 		System.out.println("Wrote " + bytesWritten + " Bytes");
 	}
 
-	public void sendDuration(int duration) { // Duration is in us
+	public void sendDuration(int duration) { // Duration is in ms
 
 		String message = String.format("DURATION:%d;", duration);
 

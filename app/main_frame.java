@@ -116,6 +116,7 @@ public class main_frame extends JFrame {
 		add(bpm);
 
 		positionPanel.registerDisplacementTracker(displacementPanel.getDisplacementVolume());
+		positionPanel.registerDurationCalculator(strokeDurationPanel.getSlider());
 
 		strokeDelayPanel.registerBPMTracker(bpm.getBPM());
 		strokeDurationPanel.registerBPMTracker(bpm.getBPM());

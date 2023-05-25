@@ -4,6 +4,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Components.Sliders.PositionSlider;
+import Components.Sliders.StrokeDurationSlider;
 import Components.TextBoxes.DisplacementVolume;
 import Components.TextBoxes.PositionValue;
 import app.Arduino;
@@ -12,13 +13,23 @@ public class PositionChangeListener implements ChangeListener {
 
 	private DisplacementVolume displacementVolume;
 	private PositionValue value;
+	private StrokeDurationSlider durationSlider;
 
 	Arduino arduino;
 
 	public PositionChangeListener(DisplacementVolume displacementVolume, PositionValue value) {
 		this.displacementVolume = displacementVolume;
 		this.value = value;
+		this.durationSlider = null;
 
+		arduino = null;
+	}
+
+	public PositionChangeListener(StrokeDurationSlider slider) {
+		this.durationSlider = slider;
+
+		this.displacementVolume = null;
+		this.value = null;
 		arduino = null;
 	}
 
@@ -29,12 +40,20 @@ public class PositionChangeListener implements ChangeListener {
 		int start = positionSlider.getStart();
 		int stop = positionSlider.getStop();
 
-		displacementVolume.setVolume(start, stop);
+		if (displacementVolume != null) {
+			displacementVolume.setVolume(start, stop);
+		}
 
-		value.setValue(start, stop);
+		if (value != null) {
+			value.setValue(start, stop);
+		}
 
 		if (arduino != null) {
 			arduino.sendPosition(start, stop);
+		}
+
+		if (durationSlider != null) {
+			durationSlider.setMinimum((int) ((stop - start) / (float) 100 * 4000));
 		}
 
 	}
