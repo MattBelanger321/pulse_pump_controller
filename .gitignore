@@ -39,3 +39,4 @@ build/*
 *.zip
 Pulse Pump Controller/
 pulse_pump_controller.jar
+!arduino-cli.exe
